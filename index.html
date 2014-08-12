@@ -87,53 +87,55 @@
         </div>
 
         <div class="container">
-            <div class="col-md-6">
-                <div class="col-md-6" ng-show="activity['Que_projeto_realizou_essa_atividade?']">
+            <div class="col-md-3">
+                <div ng-show="activity['Que_projeto_realizou_essa_atividade?']">
                     <p><b>Que projeto realizou essa atividade?</b></p>
                     <p>{{ activity['Que_projeto_realizou_essa_atividade?'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Que_dia_essa_atividade_foi/será_realizada?']">
+                <div ng-show="activity['Que_dia_essa_atividade_foi/será_realizada?']">
                     <p><b>Que dia essa atividade foi/será realizada?</b></p>
                     <p>{{ activity['Que_dia_essa_atividade_foi/será_realizada?'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Qual_o_valor_da_atividade?']">
+                <div ng-show="activity['Qual_o_valor_da_atividade?']">
                     <p><b>Qual o valor da atividade?</b></p>
                     <p>{{ activity['Qual_o_valor_da_atividade?'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Qual_é_o_nome_da_atividade?_']">
+                <div ng-show="activity['Qual_é_o_nome_da_atividade?_']">
                     <p><b>Qual é o nome da atividade?</b></p>
                     <p>{{ activity['Qual_é_o_nome_da_atividade?_'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Em_quais_categorias_essa_atividade_se_encaixa?']">
+                <div ng-show="activity['Em_quais_categorias_essa_atividade_se_encaixa?']">
                     <p><b>Em quais categorias essa atividade se encaixa?</b></p>
                     <p>{{ activity['Em_quais_categorias_essa_atividade_se_encaixa?'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Como_é_o_espaço_utilizado?_']">
+                <div ng-show="activity['Como_é_o_espaço_utilizado?_']">
                     <p><b>Como é o espaço utilizado?</b></p>
                     <p>{{ activity['Como_é_o_espaço_utilizado?_'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Quanto_tempo_durou_a_atividade?_(opcional)']">
+                <div ng-show="activity['Quanto_tempo_durou_a_atividade?_(opcional)']">
                     <p><b>Quanto tempo durou a atividade? (opcional)</b></p>
                     <p>{{ activity['Quanto_tempo_durou_a_atividade?_(opcional)'] }}</p>
                 </div>
+            </div>
 
-                <div class="col-md-6" ng-show="activity['Como_o_valor_foi_trabalhado_na_atividade?_(opcional)']">
+            <div class="col-md-3">
+                <div ng-show="activity['Como_o_valor_foi_trabalhado_na_atividade?_(opcional)']">
                     <p><b>Como o valor foi trabalhado na atividade? (opcional)</b></p>
                     <p>{{ activity['Como_o_valor_foi_trabalhado_na_atividade?_(opcional)'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Foi_utilizado_algum_material?_Qual?_Quanto?_(opcional)_']">
+                <div ng-show="activity['Foi_utilizado_algum_material?_Qual?_Quanto?_(opcional)_']">
                     <p><b>Foi utilizado algum material? Qual? Quanto? (opcional)</b></p>
                     <p>{{ activity['Foi_utilizado_algum_material?_Qual?_Quanto?_(opcional)_'] }}</p>
                 </div>
 
-                <div class="col-md-6" ng-show="activity['Feedback']">
+                <div ng-show="activity['Feedback']">
                     <p><b>Feedback</b></p>
                     <p>{{ activity['Feedback'] }}</p>
                 </div>
