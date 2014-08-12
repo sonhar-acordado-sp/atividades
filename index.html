@@ -13,44 +13,7 @@
     (function(angular) {
         var app = angular.module('gsheet', ['ngResource']);
 
-        // credits: http://jsbin.com/UmOMAgA/42/edit
-        app.filter('partition', function($cacheFactory) {
-          var arrayCache = $cacheFactory('partition');
-          var filter = function(arr, size) {
-            if (!arr) { return; }
-            var newArr = [];
-            for (var i=0; i<arr.length; i+=size) {
-                newArr.push(arr.slice(i, i+size));        
-            }
-            var cachedParts;
-            var arrString = JSON.stringify(arr);
-            cachedParts = arrayCache.get(arrString+size); 
-            if (JSON.stringify(cachedParts) === JSON.stringify(newArr)) {
-              return cachedParts;
-            }
-            arrayCache.put(arrString+size, newArr);
-            return newArr;
-          };
-          return filter;
-        });
-
-        app.factory('Activity', function() {
-            var Activity = function(obj) {
-                this.getDescricao = function(){ return obj['Descreva_a_atividade_']; };
-                this.getCategorias = function(){ return obj['Em_quais_categorias_essa_atividade_se_encaixa?']; };
-                this.getFeedback = function(){ return obj['Feedback']; };
-                this.getMateriais = function(){ return obj['Foi_utilizado_algum_material?_Qual?_Quanto?_(opcional)_']; };
-                this.getValor = function(){ return obj['Qual_o_valor_da_atividade?']; };
-                this.getNome = function(){ return obj['Qual_é_o_nome_da_atividade?_']; };
-                this.getDuracao = function(){ return obj['Quanto_tempo_durou_a_atividade?_(opcional)']; };
-                this.getProjeto = function(){ return obj['Que_projeto_realizou_essa_atividade?']; };
-                this.getTimestamp = function(){ return obj['Timestamp']; };
-            };
-
-            return Activity;
-        });
-
-        app.factory('sheet', function($resource, Activity){
+        app.factory('sheet', function($resource){
             var Sheet = $resource('https://script.google.com/macros/s/AKfycbwOrCSHRKgy_lUu5Cc7O3iAABwevCCLmK-5vxl3r25FmutcUSs/exec'
                                    + '?id=0AlmDz84IVUSXdDNHaW1NNWlsX0g0UF9Sdk9MMm01V1E'
                                    + '&sheet=Form Responses');
