@@ -126,12 +126,12 @@
     <div ng-controller="SearchCtrl">
         <div class="header_wrapper">
             <div class="header">
-                <div class="search_wrapper col-sm-1">
+                <div class="search_wrapper pull-left">
                     <h1><a href="#" class="logo_wrapper"><span class="logo">Sonhar Acordado</span></a></h1>
                 </div>
-                <div class="content search col-sm-11">
-                    <form class="form-group">
-                            <div class="input-group col-sm-6">
+                <div class="content search col-sm-8">
+                    <form class="form-group form-group-lg">
+                            <div class="input-group">
                                 <input type="text" class="form-control" ng-model="search.$" />
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
                             </div>
@@ -140,7 +140,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="results col-sm-12">
+            <div class="results col-sm-12 clearfix">
                 <div ng-repeat="row in sheet | filter:search:strict">
                     <div class="line col-lg-6">
                         <div class="record">
