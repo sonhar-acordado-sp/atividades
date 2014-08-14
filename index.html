@@ -4,6 +4,9 @@
     <title>Atividades</title>
     <meta charset="utf-8"/>
 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link href='http://fonts.googleapis.com/css?family=Raleway:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
@@ -81,13 +84,7 @@
             margin-left: 0.6em;
          }
 
-         .container  {
-            margin-left:  50px;
-            margin-right:  50px;
-            width: 95%;
-         }
-
-         .container .line {
+         .results .line {
             margin-bottom: 1em;
             padding-bottom: 0.5em;
          }
@@ -102,21 +99,21 @@
             }
          }
 
-         .container .record h2 {
+         .results .record h2 {
             font-size: 20px;
             color: #333;
             font-family: 'Raleway', sans-serif;
             font-weight: bold;
          }
 
-         .container .record p {
+         .results .record p {
             font-family: 'Raleway', sans-serif;
             color: #555;
             margin-bottom: 5px;
             word-wrap: break-word;
          }
 
-         .container .record p a:last-child {
+         .results .record p a:last-child {
             font-family: monospace;
             cursor: pointer;
             color: #000;
@@ -151,7 +148,7 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fuid">
             <div class="results col-sm-12 clearfix">
                 <div ng-repeat="row in sheet | filter:search:strict">
                     <div class="line col-lg-6">
