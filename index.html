@@ -18,9 +18,12 @@
         app.factory('sheet', function($resource){
             var Sheet = $resource('https://script.google.com/macros/s/AKfycbwOrCSHRKgy_lUu5Cc7O3iAABwevCCLmK-5vxl3r25FmutcUSs/exec'
                                    + '?id=0AlmDz84IVUSXdDNHaW1NNWlsX0g0UF9Sdk9MMm01V1E'
-                                   + '&sheet=Form Responses');
+                                   + '&sheet=Form Responses',
+                                   {'callback': 'JSON_CALLBACK'},
+                                   {'get_sheet': {'method':'JSONP'}});
 
-            return new Sheet().$get();
+
+            return Sheet.get_sheet().$promise;
         })
 
         app.controller('SearchCtrl', function($scope, sheet){
@@ -87,7 +90,16 @@
          .container .line {
             margin-bottom: 1em;
             padding-bottom: 0.5em;
-            border-bottom: 1px dotted lightgray;
+         }
+
+         .results > div:nth-child(n + 2) .line{
+            border-top: 1px dotted lightgray;
+         }
+
+         @media only screen and (min-width: 1200px) {
+            .results > div:nth-child(-n + 2) .line{
+                border-top-width: 0px;
+            }
          }
 
          .container .record h2 {
@@ -95,8 +107,8 @@
             color: #333;
             font-family: 'Raleway', sans-serif;
             font-weight: bold;
-         } 
-         
+         }
+
          .container .record p {
             font-family: 'Raleway', sans-serif;
             color: #555;
