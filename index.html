@@ -44,6 +44,11 @@
 
     <style type="text/css">
         body, html { height: 100%; }
+
+        body {
+            overflow-y: scroll;
+        }
+
         .header_wrapper {
             margin: 0;
             padding: 2em 0 2em 0;
@@ -58,6 +63,11 @@
         .header h1 {
             margin: 0;
         }
+
+        .header h1 a {
+            text-decoration: none;
+        }
+
         .header .logo {
             background: white url(https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/t1.0-1/c0.0.50.50/p50x50/999915_572757989460958_1767763797_n.jpg) no-repeat no-repeat;
             display: block;
@@ -66,6 +76,12 @@
             width: 60px;
             margin-top: -15px;
             margin-left: 0.6em;
+         }
+
+         .container  {
+            margin-left:  50px;
+            margin-right:  50px;
+            width: 95%;
          }
 
          .container .line {
@@ -85,6 +101,7 @@
             font-family: 'Raleway', sans-serif;
             color: #555;
             margin-bottom: 5px;
+            word-wrap: break-word;
          }
 
          .container .record p a:last-child {
@@ -115,7 +132,7 @@
                 <div class="content search col-sm-11">
                     <form class="form-group">
                             <div class="input-group col-sm-6">
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" ng-model="search.$" />
                                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
                             </div>
                     </form>
@@ -123,23 +140,28 @@
             </div>
         </div>
         <div class="container">
-            <div class="filters pull-right col-sm-4">
-
-            </div>
-
-            <div class="results col-sm-8 pull-left">
-
-                <div class="line" ng-repeat="row in sheet">
-                    <div class="record">
-                        <h2>{{row['Qual_é_o_nome_da_atividade?_']}}</h2>
-                        <p ng-hide="full">{{row['Descreva_a_atividade_'] | limitTo: 300}}<a ng-click="full=!full">[+]</a></p>
-                        <p ng-show="full">{{row['Descreva_a_atividade_']}}<a ng-click="full=!full">[-]</a></p>
-                        <div class="extra"><span class="glyphicon glyphicon-heart"></span> <span>{{row['Qual_o_valor_da_atividade?']}}</span></div>
-                        <div class="extra"><span class="glyphicon glyphicon-time"></span> <span>{{row['Quanto_tempo_durou_a_atividade?_(opcional)']}}</span></div>
-                        <div class="extra"><span class="glyphicon glyphicon-tags"></span> <span>{{row['Em_quais_categorias_essa_atividade_se_encaixa?']}}</span></div>
+            <div class="results col-sm-12">
+                <div ng-repeat="row in sheet | filter:search:strict">
+                    <div class="line col-lg-6">
+                        <div class="record">
+                            <h2>{{row['Qual_é_o_nome_da_atividade?_']}}</h2>
+                            <p ng-hide="full">
+                                {{row['Descreva_a_atividade_'] | limitTo: 300}}
+                                <a ng-show="row['Descreva_a_atividade_'].length > 300"
+                                   ng-click="full=!full">[+]</a>
+                            </p>
+                            <p ng-show="full">
+                                {{row['Descreva_a_atividade_']}}
+                                <a ng-click="full=!full">[-]</a>
+                            </p>
+                            <div class="extra"><span class="glyphicon glyphicon-heart"></span> <span>{{row['Qual_o_valor_da_atividade?']}}</span></div>
+                            <div class="extra"><span class="glyphicon glyphicon-time"></span> <span>{{row['Quanto_tempo_durou_a_atividade?_(opcional)']}}</span></div>
+                            <div class="extra"><span class="glyphicon glyphicon-tags"></span> <span>{{row['Em_quais_categorias_essa_atividade_se_encaixa?']}}</span></div>
+                        </div>
                     </div>
-                </div>
 
+                    <div class="clearfix" ng-show="$odd"></div>
+                </div>
             </div>
         </div>
     </div>
