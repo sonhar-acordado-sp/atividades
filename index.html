@@ -18,30 +18,44 @@
     (function(angular) {
         var app = angular.module('gsheet', ['ngResource']);
 
-        app.factory('sheet', function($resource){
-            var Sheet = $resource('https://script.google.com/macros/s/AKfycbwOrCSHRKgy_lUu5Cc7O3iAABwevCCLmK-5vxl3r25FmutcUSs/exec'
-                                   + '?id=0AlmDz84IVUSXdDNHaW1NNWlsX0g0UF9Sdk9MMm01V1E'
-                                   + '&sheet=Form Responses',
-                                   {'callback': 'JSON_CALLBACK'},
-                                   {'get_sheet': {'method':'JSONP'}});
-
-
-            return Sheet.get_sheet().$promise;
+        app.factory('sheet', function($http){
+            return $http.jsonp('https://script.google.com/macros/s/'
+                        +'AKfycbwOrCSHRKgy_lUu5Cc7O3iAABwevCCLmK-5vxl3r25FmutcUSs/exec'
+                        + '?id=0AlmDz84IVUSXdDNHaW1NNWlsX0g0UF9Sdk9MMm01V1E'
+                        + '&sheet=Form Responses&callback=JSON_CALLBACK');
         })
 
-        app.controller('SearchCtrl', function($scope, sheet){
-            $scope.sheet = [];
-            $scope.activity = null;
+        app.factory('storage', function(){
+            var storage = window.localStorage;
+            if(!storage) {
+                return
+            }
 
-            sheet.then(function(data){
-                $scope.sheet = data['Form Responses'].filter(function(e){
+            var db = {
+                getJson: function(key){
+                    return angular.fromJson(storage.getItem(key));
+                },
+                setJson: function(key, value){
+                    storage.setItem(key, angular.toJson(value));
+                }
+            };
+
+            return db;
+        })
+
+        app.controller('SearchCtrl', function($scope, sheet, storage){
+            $scope.sheet = storage.getJson('sheet');
+
+            sheet.then(function(resp){
+                $scope.sheet = resp.data['Form Responses'].filter(function(e){
                     return e['Em_quais_categorias_essa_atividade_se_encaixa?']
                            && e['Feedback']
                            && e['Qual_o_valor_da_atividade?']
                            && e['Qual_é_o_nome_da_atividade?_']
                            && e['Que_projeto_realizou_essa_atividade?']
                 });
-                $scope.activity = $scope.sheet[0];
+
+                storage.setJson('sheet', $scope.sheet);
             });
         });
 
