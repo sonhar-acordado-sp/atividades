@@ -43,9 +43,24 @@
             return db;
         })
 
-        app.controller('ListingCtrl', function($scope, sheet, storage){
-            $scope.sheet = storage.getJson('sheet');
+        app.controller('ListingCtrl', function($scope, $location, sheet, storage){
+            $scope.sheet = storage.getJson('sheet') || [];
             $scope.panel = 'listing';
+
+            $scope.$on('$locationChangeSuccess', function(){
+                var match = $location.path().match(/^\/(\d+)$/);
+
+                if (match) {
+                    var row_n = parseInt(match[1], 10);
+                    if (row_n < $scope.sheet.length) {
+                        $scope.showActivity($scope.sheet[row_n]);
+                    } else {
+                        $scope.panel = 'listing';
+                    }
+                } else {
+                    $scope.panel = 'listing';
+                }
+            });
 
             sheet.then(function(resp){
                 $scope.sheet = resp.data['Form Responses'].filter(function(e){
@@ -243,7 +258,7 @@
                 <div ng-repeat="row in sheet | filter:search:strict">
                     <div class="line col-lg-6">
                         <div class="record">
-                            <h2><a ng-click="showActivity(row)">{{row['Qual_é_o_nome_da_atividade?_']}}</a></h2>
+                            <h2><a href="#/{{ $index }}">{{row['Qual_é_o_nome_da_atividade?_']}}</a></h2>
                             <p ng-hide="full">
                                 {{row['Descreva_a_atividade_'] | limitTo: 300}}
                                 <a ng-show="row['Descreva_a_atividade_'].length > 300"
