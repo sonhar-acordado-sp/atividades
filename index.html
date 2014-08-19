@@ -283,7 +283,7 @@
                                 <a ng-click="full=!full">[-]</a>
                             </p>
                             <div class="extra"><span class="glyphicon glyphicon-heart"></span> <span>{{row['Qual_o_valor_da_atividade?']}}</span></div>
-                            <div class="extra"><span class="glyphicon glyphicon-time"></span> <span>{{row['Quanto_tempo_durou_a_atividade?_(opcional)']}}</span></div>
+                            <div class="extra" ng-show="row['Quanto_tempo_durou_a_atividade?_(opcional)']"><span class="glyphicon glyphicon-time"></span> <span>{{row['Quanto_tempo_durou_a_atividade?_(opcional)']}}</span></div>
                             <div class="extra"><span class="glyphicon glyphicon-tags"></span> <span>{{row['Em_quais_categorias_essa_atividade_se_encaixa?']}}</span></div>
                         </div>
                     </div>
