@@ -74,6 +74,10 @@
                 storage.setJson('sheet', $scope.sheet);
             });
 
+            $scope.getIndex = function(row) {
+                return $scope.sheet.indexOf(row);
+            }
+
             $scope.showActivity = function(row) {
                 $scope.activity = row;
                 $scope.panel = 'fullview';
@@ -272,7 +276,7 @@
                 <div ng-repeat="row in sheet | filter:search:strict">
                     <div class="line col-lg-6">
                         <div class="record">
-                            <h2><a href="#/{{ $index }}">{{row['Qual_é_o_nome_da_atividade?_']}}</a></h2>
+                            <h2><a href="#/{{ getIndex(row) }}">{{row['Qual_é_o_nome_da_atividade?_']}}</a></h2>
                             <p ng-hide="full">
                                 {{row['Descreva_a_atividade_'] | limitTo: 300}}
                                 <a ng-show="row['Descreva_a_atividade_'].length > 300"
