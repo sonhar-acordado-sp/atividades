@@ -43,7 +43,7 @@
             return db;
         })
 
-        app.controller('ListingCtrl', function($scope, $location, sheet, storage){
+        app.controller('ListingCtrl', function($scope, $sce, $location, sheet, storage){
             $scope.sheet = storage.getJson('sheet') || [];
             $scope.panel = 'listing';
 
@@ -73,6 +73,18 @@
 
                 storage.setJson('sheet', $scope.sheet);
             });
+
+            $scope.renderText = function(text) {
+                if(!text) return;
+
+                text = text.replace(/</g, '&lt;');
+                text = text.replace(/>/g, '&gt;');
+                text = text.replace(/\r?\n/g, '<br/>');
+                text = text.replace(/([a-z]{3,4}:\/\/(\w+\.)*\w{2,3}\/[^\s<]*)/g,
+                                    '<a href="$1">$1</a>');
+
+                return $sce.trustAsHtml(text);
+            };
 
             $scope.getIndex = function(row) {
                 return $scope.sheet.indexOf(row);
@@ -265,7 +277,7 @@
                     </div>
                     <div class="col-lg-6 col-sm-12" ng-show="activity['Descreva_a_atividade_']">
                         <p><b>Descreva a atividade</b></p>
-                        <p>{{ activity['Descreva_a_atividade_'] }}</p>
+                        <p ng-bind-html="renderText(activity['Descreva_a_atividade_'])"></p>
                     </div>
                 </div>
             </div>
