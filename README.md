@@ -1,5 +1,7 @@
 # Atividades
 
+Acesse em http://sonhar-acordado-sp.github.io/atividades/
+
 Interface para visualizar a coleção de atividades
 desenvolvidas e catalogadas no Sonhar Acordado de
 São Paulo.
