@@ -27,13 +27,23 @@
 
         app.factory('storage', function(){
             var storage = window.localStorage;
+
             if(!storage) {
-                return
+                // stub
+                storage = {
+                    setItem: function setItem(k, v) { storage[k] = v; },
+                    getItem: function getItem(k, v) { return storage[k]; }
+                };
             }
 
             var db = {
                 getJson: function(key){
-                    return angular.fromJson(storage.getItem(key));
+                    try {
+                        return angular.fromJson(storage.getItem(key));
+                    } catch (e) {
+                        console && console.error && console.error(e);
+                    }
+                    return [];
                 },
                 setJson: function(key, value){
                     storage.setItem(key, angular.toJson(value));
@@ -41,12 +51,12 @@
             };
 
             return db;
-        })
+        });
 
         app.controller('ListingCtrl', function($scope, $sce, $location, sheet, storage){
             $scope.sheet = storage.getJson('sheet') || [];
             $scope.panel = 'listing';
-            $scope.loading = $scope.sheet && $scope.sheet.length && $scope.sheet.length == 0;
+            $scope.loading = $scope.sheet && $scope.sheet.length && $scope.sheet.length === 0;
 
             $scope.$on('$locationChangeSuccess', function(){
                 var match = $location.path().match(/^\/(\d+)$/);
